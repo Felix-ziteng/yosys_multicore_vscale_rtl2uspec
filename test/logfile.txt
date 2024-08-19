@@ -1,0 +1,11 @@
+SBY 21:34:47 [test] Copy '/home/felix/Documents/rtl2uspec/multicore_vscale_rtl2uspec_ae/jg_hdls_base.f' to '/home/felix/Documents/rtl2uspec/multicore_vscale_rtl2uspec_ae/test/src/jg_hdls_base.f'.
+SBY 21:34:47 [test] engine_0: smtbmc
+SBY 21:34:47 [test] base: starting process "cd test/src; yosys -ql ../model/design.log ../model/design.ys"
+SBY 21:34:47 [test] base: jg_hdls_base.f:1: ERROR: syntax error, unexpected '+'
+SBY 21:34:47 [test] base: finished (returncode=1)
+SBY 21:34:47 [test] base: task failed. ERROR.
+SBY 21:34:47 [test] summary: Elapsed clock time [H:MM:SS (secs)]: 0:00:00 (0)
+SBY 21:34:47 [test] summary: Elapsed process time [H:MM:SS (secs)]: 0:00:00 (0)
+SBY 21:34:47 [test] summary: engine_0 (smtbmc) did not return a status
+SBY 21:34:47 [test] summary: engine_0 did not produce any traces
+SBY 21:34:47 [test] DONE (ERROR, rc=16)

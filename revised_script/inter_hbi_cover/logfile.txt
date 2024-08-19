@@ -1,0 +1,2 @@
+SBY  0:00:55 [revised_script/inter_hbi_cover] Removing directory '/home/felix/Documents/rtl2uspec/multicore_vscale_rtl2uspec_ae/revised_script/inter_hbi_cover'.
+SBY  0:00:55 [revised_script/inter_hbi_cover] ERROR: Already defined engine block

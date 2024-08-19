@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+<testsuite timestamp="2024-08-18T12:05:03" hostname="felix-virtual-machine" package="test" id="0" name="default" tests="1" errors="1" failures="0" time="0" skipped="0">
+<properties>
+<property name="os" value="Linux"/>
+<property name="expect" value="PASS"/>
+<property name="status" value="ERROR"/>
+</properties>
+<testcase classname="default" name="default" time="0">
+<error type="ERROR"/>
+</testcase>
+<system-out>SBY 12:05:03 [test] Copy '/home/felix/Documents/rtl2uspec/multicore_vscale_rtl2uspec_ae/src/main/verilog/vscale_csr_addr_map.vh' to '/home/felix/Documents/rtl2uspec/multicore_vscale_rtl2uspec_ae/src/main/verilog/test/src/vscale_csr_addr_map.vh'.
+SBY 12:05:03 [test] Copy '/home/felix/Documents/rtl2uspec/multicore_vscale_rtl2uspec_ae/src/main/verilog/vscale_ctrl_constants.vh' to '/home/felix/Documents/rtl2uspec/multicore_vscale_rtl2uspec_ae/src/main/verilog/test/src/vscale_ctrl_constants.vh'.
+SBY 12:05:03 [test] Copy '/home/felix/Documents/rtl2uspec/multicore_vscale_rtl2uspec_ae/src/main/verilog/vscale_hasti_constants.vh' to '/home/felix/Documents/rtl2uspec/multicore_vscale_rtl2uspec_ae/src/main/verilog/test/src/vscale_hasti_constants.vh'.
+SBY 12:05:03 [test] Copy '/home/felix/Documents/rtl2uspec/multicore_vscale_rtl2uspec_ae/src/main/verilog/vscale_multicore_constants.vh' to '/home/felix/Documents/rtl2uspec/multicore_vscale_rtl2uspec_ae/src/main/verilog/test/src/vscale_multicore_constants.vh'.
+SBY 12:05:03 [test] Copy '/home/felix/Documents/rtl2uspec/multicore_vscale_rtl2uspec_ae/src/main/verilog/rv32_opcodes.vh' to '/home/felix/Documents/rtl2uspec/multicore_vscale_rtl2uspec_ae/src/main/verilog/test/src/rv32_opcodes.vh'.
+SBY 12:05:03 [test] Copy '/home/felix/Documents/rtl2uspec/multicore_vscale_rtl2uspec_ae/src/main/verilog/vscale_sim_top_unmod.v' to '/home/felix/Documents/rtl2uspec/multicore_vscale_rtl2uspec_ae/src/main/verilog/test/src/vscale_sim_top_unmod.v'.
+SBY 12:05:03 [test] engine_0: smtbmc
+SBY 12:05:03 [test] base: starting process &quot;cd test/src; yosys -ql ../model/design.log ../model/design.ys&quot;
+SBY 12:05:03 [test] base: vscale_sim_top_unmod.v:10: ERROR: syntax error, unexpected '[', expecting ',' or '=' or ')'
+SBY 12:05:03 [test] base: finished (returncode=1)
+SBY 12:05:03 [test] base: task failed. ERROR.
+SBY 12:05:03 [test] summary: Elapsed clock time [H:MM:SS (secs)]: 0:00:00 (0)
+SBY 12:05:03 [test] summary: Elapsed process time [H:MM:SS (secs)]: 0:00:00 (0)
+SBY 12:05:03 [test] summary: engine_0 (smtbmc) did not return a status
+SBY 12:05:03 [test] summary: engine_0 did not produce any traces
+SBY 12:05:03 [test] DONE (ERROR, rc=16)
+</system-out>
+<system-err>
+</system-err>
+</testsuite>
+</testsuites>

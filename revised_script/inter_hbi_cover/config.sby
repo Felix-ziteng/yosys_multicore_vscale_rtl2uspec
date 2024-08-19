@@ -1,0 +1,18 @@
+[options]
+mode prove
+
+[engines]
+smtbmc z3
+
+[script]
+read -formal -f jg_hdls_base.f
+prep -top vscale_sim_top_dup  # 假设顶层模块是 vscale_sim_top_dup
+
+[files]
+jg_hdls_base.f
+
+[engines]
+smtbmc z3
+
+[status]
+cover

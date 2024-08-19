@@ -1,0 +1,18 @@
+# running in test/src/
+# 读取所有 Verilog 文件
+read -formal jg_hdls_base.f
+prep -top vscale_core
+
+# 设置证明时间限制
+setattr -unset -all -set prove_time_limit 10m
+
+# 设置引擎模式
+setattr -unset -all -set engine_mode {K I N C}
+
+# 运行证明
+prove -all -covers
+
+hierarchy -smtcheck
+rename -witness
+write_jny -no-connections ../model/design.json
+write_rtlil ../model/design.il

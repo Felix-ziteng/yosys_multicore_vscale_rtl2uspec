@@ -1,0 +1,33 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2024  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.44+16 (git sha1 1eaf4e079, g++ 11.4.0-1ubuntu1~22.04 -fPIC -O3)
+
+-- Executing script file `../model/design.ys' --
+
+1. Executing Verilog-2005 frontend: vscale_csr_addr_map.vh
+Parsing Verilog input from `vscale_csr_addr_map.vh' to AST representation.
+Successfully finished Verilog frontend.
+
+2. Executing Verilog-2005 frontend: vscale_ctrl_constants.vh
+Parsing Verilog input from `vscale_ctrl_constants.vh' to AST representation.
+Successfully finished Verilog frontend.
+
+3. Executing Verilog-2005 frontend: vscale_hasti_constants.vh
+Parsing Verilog input from `vscale_hasti_constants.vh' to AST representation.
+Successfully finished Verilog frontend.
+
+4. Executing Verilog-2005 frontend: vscale_multicore_constants.vh
+Parsing Verilog input from `vscale_multicore_constants.vh' to AST representation.
+Successfully finished Verilog frontend.
+
+5. Executing Verilog-2005 frontend: rv32_opcodes.vh
+Parsing Verilog input from `rv32_opcodes.vh' to AST representation.
+Successfully finished Verilog frontend.
+
+6. Executing Verilog-2005 frontend: vscale_sim_top_unmod.v
+Parsing Verilog input from `vscale_sim_top_unmod.v' to AST representation.
+vscale_sim_top_unmod.v:10: ERROR: syntax error, unexpected '[', expecting ',' or '=' or ')'

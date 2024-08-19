@@ -14,17 +14,28 @@ module vscale_dp_hasti_sram(
                             output [`HASTI_BUS_WIDTH-1:0]  p0_hrdata,
                             output                         p0_hready,
                             output                         p0_hresp,
-                            input [`HASTI_ADDR_WIDTH-1:0]  p1_haddr [0:`NUM_CORES-1],
-                            input                          p1_hwrite [0:`NUM_CORES-1],
-                            input [`HASTI_SIZE_WIDTH-1:0]  p1_hsize [0:`NUM_CORES-1],
-                            input [`HASTI_BURST_WIDTH-1:0] p1_hburst [0:`NUM_CORES-1],
-                            input                          p1_hmastlock [0:`NUM_CORES-1],
-                            input [`HASTI_PROT_WIDTH-1:0]  p1_hprot [0:`NUM_CORES-1],
-                            input [`HASTI_TRANS_WIDTH-1:0] p1_htrans [0:`NUM_CORES-1],
-                            input [`HASTI_BUS_WIDTH-1:0]   p1_hwdata [0:`NUM_CORES-1],
-                            output reg [`HASTI_BUS_WIDTH-1:0]  p1_hrdata [0:`NUM_CORES-1],
-                            output reg                     p1_hready [0:`NUM_CORES-1],
-                            output reg                     p1_hresp [0:`NUM_CORES-1]
+                            input [`HASTI_ADDR_WIDTH-1:0]  p1_haddr_0,
+                            input [`HASTI_ADDR_WIDTH-1:0]  p1_haddr_1,
+                            input                          p1_hwrite_0,
+                            input                          p1_hwrite_1,
+                            input [`HASTI_SIZE_WIDTH-1:0]  p1_hsize_0,
+                            input [`HASTI_SIZE_WIDTH-1:0]  p1_hsize_1,
+                            input [`HASTI_BURST_WIDTH-1:0] p1_hburst_0,
+                            input [`HASTI_BURST_WIDTH-1:0] p1_hburst_1,
+                            input                          p1_hmastlock_0,
+                            input                          p1_hmastlock_1,
+                            input [`HASTI_PROT_WIDTH-1:0]  p1_hprot_0,
+                            input [`HASTI_PROT_WIDTH-1:0]  p1_hprot_1,
+                            input [`HASTI_TRANS_WIDTH-1:0] p1_htrans_0,
+                            input [`HASTI_TRANS_WIDTH-1:0] p1_htrans_1,
+                            input [`HASTI_BUS_WIDTH-1:0]   p1_hwdata_0,
+                            input [`HASTI_BUS_WIDTH-1:0]   p1_hwdata_1,
+                            output reg [`HASTI_BUS_WIDTH-1:0]  p1_hrdata_0,
+                            output reg [`HASTI_BUS_WIDTH-1:0]  p1_hrdata_1,
+                            output reg                     p1_hready_0,
+                            output reg                     p1_hready_1,
+                            output reg                     p1_hresp_0,
+                            output reg                     p1_hresp_1
                             );
 
    parameter nwords = 32;
@@ -84,47 +95,62 @@ module vscale_dp_hasti_sram(
    assign p0_hresp = `HASTI_RESP_OKAY;
 
 
-   reg [`HASTI_ADDR_WIDTH-1:0] p1_raddr [0:`NUM_CORES-1];
-   reg                         p1_ren [0:`NUM_CORES-1];
-   reg                          p1_bypass [0:`NUM_CORES-1];
-   reg [`HASTI_ADDR_WIDTH-1:0]  p1_reg_raddr [0:`NUM_CORES-1];
+   // p1 signals
+   reg [`HASTI_ADDR_WIDTH-1:0] p1_raddr_0;
+   reg [`HASTI_ADDR_WIDTH-1:0] p1_raddr_1;
+   reg                         p1_ren_0;
+   reg                         p1_ren_1;
+   reg                         p1_bypass_0;
+   reg                         p1_bypass_1;
+   reg [`HASTI_ADDR_WIDTH-1:0]  p1_reg_raddr_0;
+   reg [`HASTI_ADDR_WIDTH-1:0]  p1_reg_raddr_1;
 
-   reg [`HASTI_BUS_WIDTH-1:0] p1_rdata [0:`NUM_CORES-1];
-   reg [`HASTI_BUS_WIDTH-1:0] p1_rmask [0:`NUM_CORES-1];
+   reg [`HASTI_BUS_WIDTH-1:0] p1_rdata_0;
+   reg [`HASTI_BUS_WIDTH-1:0] p1_rdata_1;
+   reg [`HASTI_BUS_WIDTH-1:0] p1_rmask_0;
+   reg [`HASTI_BUS_WIDTH-1:0] p1_rmask_1;
 
-   //genvar j;
-   //generate
-   //    for (j = 0; j < `NUM_CORES ; j++)
-   //        // p1
+   always @(*) begin
+      p1_raddr_0 = p1_haddr_0 >> 2;
+      p1_ren_0 = (p1_htrans_0 == `HASTI_TRANS_NONSEQ && !p1_hwrite_0);
 
-   //        always @(*) begin
-   //            p1_raddr[j] = p1_haddr[j] >> 2;
-   //            p1_ren[j] = (p1_htrans[j] == `HASTI_TRANS_NONSEQ && !p1_hwrite[j]);
+      p1_raddr_1 = p1_haddr_1 >> 2;
+      p1_ren_1 = (p1_htrans_1 == `HASTI_TRANS_NONSEQ && !p1_hwrite_1);
 
-   //            p1_rdata[j] = mem[p1_reg_raddr[j]];
-   //            p1_rmask[j] = {32{p1_bypass[j]}} & p0_wmask;
-   //            p1_hrdata[j] = (p0_wdata & p1_rmask[j]) | (p1_rdata[j] & ~p1_rmask[j]);
-   //            p1_hready[j] = 1'b1;
-   //            p1_hresp[j] = `HASTI_RESP_OKAY;
-   //        end
-   //endgenerate
+      p1_rdata_0 = mem[p1_reg_raddr_0];
+      p1_rdata_1 = mem[p1_reg_raddr_1];
 
-   //generate
-   //    for (j = 0; j < `NUM_CORES ; j++)
-   //        always @(posedge hclk) begin
-   //           p1_reg_raddr[j] <= p1_raddr[j];
-   //           if (!hresetn) begin
-   //              p1_bypass[j] <= 0;
-   //           end else begin
-   //              if (p1_htrans[j] == `HASTI_TRANS_NONSEQ) begin
-   //                 if (p1_hwrite[j]) begin
-   //                 end else begin
-   //                    p1_bypass[j] <= p0_wvalid && p0_word_waddr == p1_raddr[j];
-   //                 end
-   //              end // if (p1_htrans == `HASTI_TRANS_NONSEQ)
-   //           end
-   //        end
-   //endgenerate
+      p1_rmask_0 = {32{p1_bypass_0}} & p0_wmask;
+      p1_rmask_1 = {32{p1_bypass_1}} & p0_wmask;
+
+      p1_hrdata_0 = (p0_wdata & p1_rmask_0) | (p1_rdata_0 & ~p1_rmask_0);
+      p1_hrdata_1 = (p0_wdata & p1_rmask_1) | (p1_rdata_1 & ~p1_rmask_1);
+
+      p1_hready_0 = 1'b1;
+      p1_hready_1 = 1'b1;
+
+      p1_hresp_0 = `HASTI_RESP_OKAY;
+      p1_hresp_1 = `HASTI_RESP_OKAY;
+   end
+
+   always @(posedge hclk) begin
+      p1_reg_raddr_0 <= p1_raddr_0;
+      p1_reg_raddr_1 <= p1_raddr_1;
+      if (!hresetn) begin
+         p1_bypass_0 <= 0;
+         p1_bypass_1 <= 0;
+      end else begin
+         if (p1_htrans_0 == `HASTI_TRANS_NONSEQ) begin
+            if (!p1_hwrite_0) begin
+               p1_bypass_0 <= p0_wvalid && p0_word_waddr == p1_raddr_0;
+            end
+         end
+         if (p1_htrans_1 == `HASTI_TRANS_NONSEQ) begin
+            if (!p1_hwrite_1) begin
+               p1_bypass_1 <= p0_wvalid && p0_word_waddr == p1_raddr_1;
+            end
+         end
+      end
+   end
 
 endmodule // vscale_dp_hasti_sram
-
